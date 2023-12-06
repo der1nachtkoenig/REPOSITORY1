@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЗ</title>
+</head>
+<style>
+    h1 {
+    text-align: center;
+}
+table {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    width: 1200px;
+    justify-content: center;
+    margin: 0 100px;
+}
+tr {
+    width: 100%;
+}
+th {
+    width: 100%;
+    border: 2px solid grey;
+ }
+ .tbl_li {
+    text-align: left;
+}
+ td {
+    width: 100%;
+    border: 1px solid grey;
+    text-align: left;
+    padding: 20px;
+ }
+ .tbl_block {
+    display: none;
+ }
+ .tbl_block:target {
+    display: inline-table;
+    justify-content: center;
+ }
+</style>
+<body>
+    <div class="wrapper">
+        <h1 id="back">Заголовок сайта</h1>
+        <table class="table">
+            <tr>
+             <th>Содержание:
+                <ol class="tbl_list">
+                    <li class="tbl_li"> <a href="#passport" class="tbl_li_link">Паспорт</a></li>
+                    <li class="tbl_li"><a href="#picture" class="tbl_li_link">Открывающаяся картинка</a></li>
+                    <li class="tbl_li"><a href="#task" class="tbl_li_link">Алгоритмическая задача</a></li>
+                </ol>
+             </th>
+            </tr>
+                <table class="sub_table">
+                    <tr>
+                       <td id="passport" class="tbl_block">
+                        <h4>Российская Федерация</h4>
+                        <p>Паспорт выдан<span><pre>Отделом ГУ МВД по г.Москва</pre></span></p>
+                        <p>Фамилия<span><pre>Рахманов</pre></span></p>
+                        <p>Имя<span><pre>Михаил</pre></span></p>
+                        <p>Отчество<span><pre>Сергеевич</pre></span></p>
+                        <p>Год рождения<span><pre>15.01.2005</pre></span></p>
+                        <p id="for_click" onclick="find_edit()">click</p>
+                        </td>
+                        <td id="picture" class="tbl_block"> 
+                            <a href="croco.html" class="tbl_img_link"><img src="крокодил.jpg" alt="" width="100px"></a>
+                        </td>
+                        <td id="task" class="tbl_block"> 
+                            <h1 class="title">Задача</h1>
+                            <p class="txt">Известна денежная сумма. 
+                                Разменять её купюрами 500, 100, 10 и монетой 2 руб., если это возможно.
+                            </p>
+                            <form class="form" id="form">
+                                <input type="number" name="sum" />
+                                <button type="submit" id="verify">Оценить</button>
+                            </form>
+                            <section>
+                                <p>Результат: </p>
+                                <p>500: <span id="result-500"></span></p>
+                                <p>100: <span id="result-100"></span></p>
+                                <p>10: <span id="result-10"></span></p>
+                                <p>2: <span id="result-2"></span></p>
+                            </section>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#back" class="tbl_back_link">Вернуться к началу</a>
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+const calculate = (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  let { sum } = Object.fromEntries(formData);
+  const extract = (amount, value) => Math.floor(amount / value);
+  const separators = [500, 100, 10, 2];
+  
+  for (const separator of separators) {
+    const extract = Math.floor(sum / separator);
+    const element = document.getElementById(`result-${separator}`);
+    sum -= extract * separator;
+    element.innerHTML = extract;
+  }
+}
+
+const form=document.getElementById("form");
+form.addEventListener('submit', calculate);
+
+const node_for_click = document.getElementById('for_click')
+
+function find_edit() {
+    const p1 = document.getElementsByTagName('pre')[1]
+    p1.innerHTML = 'Rakhmanov'
+    console.log(p1.innerHTML)
+
+    const p2 = document.getElementsByTagName('pre')[2]
+    p2.innerHTML = 'Michail'
+    console.log(p2.innerHTML)
+
+    const p3 = document.getElementsByTagName('pre')[3]
+    p3.innerHTML = 'Sergeevich'
+    console.log(p3.innerHTML)
+
+    const p5 = document.getElementsByTagName('pre')[4]
+    p5.innerHTML = 'XIV.I.MMIV'
+    console.log(p5.innerHTML)
+}
+
+node_for_click.addEventListener('click',find_edit)
+</script>
+</html>
